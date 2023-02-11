@@ -82,7 +82,7 @@ public class ETVImageViewerTest extends javax.swing.JFrame {
 
         eTVImageViewerDI031.setSelectFotos(new spdvid.di03_tutoria01_componentesjavabeans.SelectFotos(new java.io.File[]{new File("C:/Users/Fer/Pictures/Saved Pictures/aad7d9fb-23de-44d5-b2a4-6248196f576f.jpg"),new File("C:/Users/Fer/Pictures/Saved Pictures/e22a8eaf-185d-4fe9-9952-f3c00c806adf.jpg"),new File("C:/Users/Fer/Pictures/Saved Pictures/eb27ba26-0e7b-4db1-abca-32625fbab781.jpg"),new File("C:/Users/Fer/Pictures/Saved Pictures/feea4926-2062-4cc4-a825-9859c1b5601e.jpg"),new File("C:/Users/Fer/Pictures/Saved Pictures/fit_FiestaPiraguas1.jpg")}));
         getContentPane().add(eTVImageViewerDI031);
-        eTVImageViewerDI031.setBounds(20, 20, 490, 260);
+        eTVImageViewerDI031.setBounds(10, 10, 530, 280);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
