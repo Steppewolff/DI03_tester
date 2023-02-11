@@ -34,8 +34,8 @@ public class ETVImageViewerTest extends javax.swing.JFrame {
         btnNext = new javax.swing.JButton();
         chkManual = new javax.swing.JCheckBox();
         lblInfoFoto = new javax.swing.JLabel();
-        eTVImageViewerDI031 = new spdvid.di03_tutoria01_componentesjavabeans.ETVImageViewerDI03();
         jspFotoSegundos = new javax.swing.JSpinner();
+        eTVImageViewerDI031 = new spdvid.di03_tutoria01_componentesjavabeans.ETVImageViewerDI03();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -64,11 +64,6 @@ public class ETVImageViewerTest extends javax.swing.JFrame {
                 chkItemStateChange(evt);
             }
         });
-        chkManual.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                chkManualStateChanged(evt);
-            }
-        });
         getContentPane().add(chkManual);
         chkManual.setBounds(230, 350, 85, 20);
 
@@ -76,16 +71,22 @@ public class ETVImageViewerTest extends javax.swing.JFrame {
         getContentPane().add(lblInfoFoto);
         lblInfoFoto.setBounds(70, 300, 400, 30);
 
-        eTVImageViewerDI031.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        eTVImageViewerDI031.setSelectFotos(new spdvid.di03_tutoria01_componentesjavabeans.SelectFotos(new java.io.File[]{new File("C:/Users/Fer/Pictures/Saved Pictures/aad7d9fb-23de-44d5-b2a4-6248196f576f.jpg"),new File("C:/Users/Fer/Pictures/Saved Pictures/e22a8eaf-185d-4fe9-9952-f3c00c806adf.jpg"),new File("C:/Users/Fer/Pictures/Saved Pictures/eb27ba26-0e7b-4db1-abca-32625fbab781.jpg"),new File("C:/Users/Fer/Pictures/Saved Pictures/feea4926-2062-4cc4-a825-9859c1b5601e.jpg"),new File("C:/Users/Fer/Pictures/Saved Pictures/fit_FiestaPiraguas1.jpg")}));
-        getContentPane().add(eTVImageViewerDI031);
-        eTVImageViewerDI031.setBounds(10, 10, 530, 280);
+        jspFotoSegundos.setModel(new javax.swing.SpinnerNumberModel(1, 0, null, 1));
+        jspFotoSegundos.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jspFotoSegundosPropertyChange(evt);
+            }
+        });
         getContentPane().add(jspFotoSegundos);
         jspFotoSegundos.setBounds(230, 380, 64, 22);
 
+        eTVImageViewerDI031.setSelectFotos(new spdvid.di03_tutoria01_componentesjavabeans.SelectFotos(new java.io.File[]{new File("C:/Users/Fer/Pictures/Saved Pictures/aad7d9fb-23de-44d5-b2a4-6248196f576f.jpg"),new File("C:/Users/Fer/Pictures/Saved Pictures/e22a8eaf-185d-4fe9-9952-f3c00c806adf.jpg"),new File("C:/Users/Fer/Pictures/Saved Pictures/eb27ba26-0e7b-4db1-abca-32625fbab781.jpg"),new File("C:/Users/Fer/Pictures/Saved Pictures/feea4926-2062-4cc4-a825-9859c1b5601e.jpg"),new File("C:/Users/Fer/Pictures/Saved Pictures/fit_FiestaPiraguas1.jpg")}));
+        getContentPane().add(eTVImageViewerDI031);
+        eTVImageViewerDI031.setBounds(20, 20, 490, 260);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void btnPrevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrevActionPerformed
         eTVImageViewerDI031.prevImage();
         lblInfoFoto.setText(eTVImageViewerDI031.getImagen().getName()); 
@@ -98,37 +99,38 @@ public class ETVImageViewerTest extends javax.swing.JFrame {
         eTVImageViewerDI031.repaint();        
     }//GEN-LAST:event_btnNextActionPerformed
 
-    private void chkManualStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_chkManualStateChanged
-//        if (chkManual.isSelected()==true){
-//            timer.stop();
-//            btnPrev.setEnabled(true);
-//            btnNext.setEnabled(true);
-//        }else if (chkManual.isSelected()!=true){
-//            btnPrev.setEnabled(false);
-//            btnNext.setEnabled(false);
-//            eTVImageViewerDI031.setN((int) jspFotoSegundos.getValue());
-//            timer = new Timer(eTVImageViewerDI031.getN()*1000, eTVImageViewerDI031);
-//            timer.start();
-//            eTVImageViewerDI031.repaint();        
-//        }
-    }//GEN-LAST:event_chkManualStateChanged
-
     private void chkItemStateChange(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chkItemStateChange
         if (chkManual.isSelected()==true){
-            btnPrev.setEnabled(true);
-            btnNext.setEnabled(true);
-            if (timer != null){
+            if (timer != null && timer.isRunning()){
                 timer.stop();
             }
+            btnPrev.setEnabled(true);
+            btnNext.setEnabled(true);
         }else{
             btnPrev.setEnabled(false);
             btnNext.setEnabled(false);
             eTVImageViewerDI031.setN((int) jspFotoSegundos.getValue());
             timer = new Timer(eTVImageViewerDI031.getN()*1000, eTVImageViewerDI031);
             timer.start();
-            eTVImageViewerDI031.repaint();        
+            timer.setRepeats(true);
+            if(timer.isRunning()){
+                lblInfoFoto.setText(eTVImageViewerDI031.getImagen().getName());
+            }
         }
     }//GEN-LAST:event_chkItemStateChange
+
+    static void changeLabel(){
+        
+    }
+    
+    private void jspFotoSegundosPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jspFotoSegundosPropertyChange
+        if (timer != null && timer.isRunning()){
+            timer.stop();
+        }        
+        eTVImageViewerDI031.setN((int) jspFotoSegundos.getValue());
+        timer = new Timer(eTVImageViewerDI031.getN()*1000, eTVImageViewerDI031);
+        timer.start();
+    }//GEN-LAST:event_jspFotoSegundosPropertyChange
 
     /**
      * @param args the command line arguments
